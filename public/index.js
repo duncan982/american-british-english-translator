@@ -1,21 +1,20 @@
-
 const translateHandler = async () => {
   const textArea = document.getElementById("text-input");
   const localeArea = document.getElementById("locale-select");
   const errorArea = document.getElementById("error-msg");
   const translatedArea = document.getElementById("translated-sentence");
-  
-  const stuff = {"text": textArea.value, "locale": localeArea.value};
+
+  const stuff = { text: textArea.value, locale: localeArea.value };
   errorArea.innerText = "";
   translatedArea.innerText = "";
 
   const data = await fetch("/api/translate", {
     method: "POST",
     headers: {
-      "Accept": "application/json",
-      "Content-type": "application/json"
+      Accept: "application/json",
+      "Content-type": "application/json",
     },
-    body: JSON.stringify(stuff)
+    body: JSON.stringify(stuff),
   });
 
   const parsed = await data.json();
@@ -24,8 +23,12 @@ const translateHandler = async () => {
     return;
   }
 
-  translatedArea.innerHTML = parsed.translation;
+  // console.log("parsed", parsed.translation);
+  translatedArea.innerHTML = parsed.translation; // working instance
+  // console.log(translatedArea.innerText);
   return;
 };
 
-document.getElementById("translate-btn").addEventListener("click", translateHandler)
+document
+  .getElementById("translate-btn")
+  .addEventListener("click", translateHandler);
